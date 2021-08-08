@@ -1,14 +1,13 @@
 const express = require('express');
+const { errors } = require('celebrate');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
-const { errors } = require('celebrate');
+const helmet = require('helmet');
+const rateLimit = require('./middlewares/rateLimiter');
 
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const auth = require('./middlewares/auth');
-const authRouter = require('./routes/auth');
-const usersRouter = require('./routes/users');
-const moviesRouter = require('./routes/movies');
-const { NotFoundError, errorHandler } = require('./utils/httpErrors');
+const router = require('./routes');
+const { errorHandler } = require('./utils/httpErrors');
 
 const {
   PORT = 3000,
@@ -25,19 +24,14 @@ mongoose.connect(MONGODB, {
 const app = express();
 
 app.use(requestLogger);
+app.use(rateLimit);
+app.use(helmet());
 
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/', authRouter);
-
-app.use(auth);
-app.use('/users', usersRouter);
-app.use('/movies', moviesRouter);
-app.use((req, res, next) => {
-  next(new NotFoundError('Запрашиваемый путь не найден'));
-});
+app.use('/', router);
 
 app.use(errorLogger);
 app.use(errors());

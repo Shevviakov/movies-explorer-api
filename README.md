@@ -11,4 +11,4 @@
 
 ## URL-адрес действующего API
 
-http://api.sheviakov.nomoredomains.monster/
+https://api.sheviakov.nomoredomains.monster/
