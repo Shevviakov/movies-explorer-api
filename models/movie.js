@@ -1,18 +1,17 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 
-
 const requiredString = {
   type: String,
   required: true,
 };
 
 const urlValidator = {
-  validator: (v) => /https?:\/\/(w{3}\.)?[-\w._~:/?#[\]@!$&'()*+,;=]+#?/.test(v),
+  validator: validator.isURL,
   message: (props) => `${props.value} is not a valid uri!`,
 };
 
-const requiredURL = {...requiredString,  validate: urlValidator};
+const requiredURL = { ...requiredString, validate: urlValidator };
 
 const movieSchema = new mongoose.Schema({
   country: requiredString,
@@ -33,7 +32,9 @@ const movieSchema = new mongoose.Schema({
   },
   movieId: requiredString,
   nameRU: requiredString,
-  nameEN: requiredString
+  nameEN: requiredString,
 });
+
+movieSchema.index({ owner: 1, movieId: 1 }, { unique: 1 });
 
 module.exports = mongoose.model('movie', movieSchema);

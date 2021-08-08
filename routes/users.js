@@ -1,7 +1,14 @@
 const router = require('express').Router();
-const { getProfile, updateProfile } = require('../controllers/users');
+const { celebrate, Joi } = require('celebrate');
+const { getMe, updateMe } = require('../controllers/users');
 
-router.get('/me', getProfile);
-router.patch('/me', updateProfile);
+const { name, email } = require('../utils/paramValidator');
+
+router.get('/me', getMe);
+router.patch(
+  '/me',
+  celebrate({ body: Joi.object().keys({ name, email }) }),
+  updateMe,
+);
 
 module.exports = router;
