@@ -8,7 +8,7 @@ const auth = require('./middlewares/auth');
 const authRouter = require('./routes/auth');
 const usersRouter = require('./routes/users');
 const moviesRouter = require('./routes/movies');
-const { errorHandler } = require('./utils/httpErrors');
+const { NotFoundError, errorHandler } = require('./utils/httpErrors');
 
 const {
   PORT = 3000,
@@ -35,6 +35,9 @@ app.use('/', authRouter);
 app.use(auth);
 app.use('/users', usersRouter);
 app.use('/movies', moviesRouter);
+app.use((req, res, next) => {
+  next(new NotFoundError('Запрашиваемый путь не найден'));
+});
 
 app.use(errorLogger);
 app.use(errors());
