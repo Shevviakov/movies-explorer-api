@@ -6,6 +6,11 @@ const requiredString = {
   required: true,
 };
 
+const requiredNumber = {
+  type: Number,
+  required: true,
+};
+
 const urlValidator = {
   validator: validator.isURL,
   message: (props) => `${props.value} is not a valid uri!`,
@@ -16,10 +21,7 @@ const requiredURL = { ...requiredString, validate: urlValidator };
 const movieSchema = new mongoose.Schema({
   country: requiredString,
   director: requiredString,
-  duration: {
-    type: Number,
-    required: true,
-  },
+  duration: requiredNumber,
   year: requiredString,
   description: requiredString,
   image: requiredURL,
@@ -30,7 +32,7 @@ const movieSchema = new mongoose.Schema({
     ref: 'user',
     required: true,
   },
-  movieId: requiredString,
+  movieId: requiredNumber,
   nameRU: requiredString,
   nameEN: requiredString,
 });

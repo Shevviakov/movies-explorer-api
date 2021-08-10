@@ -9,10 +9,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const router = require('./routes');
 const { errorHandler } = require('./utils/httpErrors');
 
-const {
-  PORT = 3000,
-  MONGODB = 'mongodb://localhost:27017/bitfilmsdb',
-} = process.env;
+const { PORT, MONGODB } = require('./utils/const');
 
 mongoose.connect(MONGODB, {
   useNewUrlParser: true,

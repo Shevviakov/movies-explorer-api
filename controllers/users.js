@@ -1,8 +1,11 @@
 const User = require('../models/user');
 const {
   mongooseErrorHandler,
-  NotFoundError,
 } = require('../utils/httpErrors');
+const {
+  userAlreadyExists,
+  userNotFound,
+} = require('../utils/errors');
 
 module.exports.getMe = (req, res, next) => {
   User.findById(req.user._id)
@@ -12,7 +15,15 @@ module.exports.getMe = (req, res, next) => {
 
 module.exports.updateMe = (req, res, next) => {
   const { name, email } = req.body;
-  User.findByIdAndUpdate(req.user._id, { name, email }, { new: true, runValidators: true })
-    .then((user) => (user ? res.send(user) : next(new NotFoundError('Запрашиваемый пользователь не найден'))))
+  User.findOne({ email })
+    .then((user) => {
+      if (user && !user._id.equals(req.user._id)) return Promise.reject(userAlreadyExists);
+      return User.findByIdAndUpdate(
+        req.user._id,
+        { name, email },
+        { new: true, runValidators: true },
+      );
+    })
+    .then((user) => (user ? res.send(user) : next(userNotFound)))
     .catch((err) => next(mongooseErrorHandler(err)));
 };

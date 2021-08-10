@@ -14,7 +14,7 @@ const errorHandler = (err, req, res, next) => {
 };
 
 const mongooseErrorHandler = (err) => {
-  if (err.name === 'ValidationError' || err.name === 'CastError') return new BadRequestError('Данные невалидны');
+  if (err.name === 'ValidationError' || err.name === 'CastError') return new BadRequestError();
   return err;
 };
 

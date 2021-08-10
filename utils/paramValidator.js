@@ -7,6 +7,7 @@ module.exports = {
   email: Joi.string().required().email(),
   password: Joi.string().required(),
   stringRequired: Joi.string().required(),
+  numberRequired: Joi.number().required(),
   urlRequired: Joi.string().required().custom((value, helper) => (
     validator.isURL(value) ? value : helper.message('URL is not valid')
   )),

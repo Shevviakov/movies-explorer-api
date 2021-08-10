@@ -1,5 +1,5 @@
 class ForbiddenError extends Error {
-  constructor(message = 'Данные невалидны') {
+  constructor(message = 'Операция недоступна') {
     super(message);
     this.name = 'ForbiddenError';
     this.status = 403;

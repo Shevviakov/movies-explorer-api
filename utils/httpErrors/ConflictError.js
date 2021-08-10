@@ -1,5 +1,5 @@
 class ConflictError extends Error {
-  constructor(message = 'Данные невалидны') {
+  constructor(message = 'Данные конфликтуют с уже существующими') {
     super(message);
     this.name = 'ConflictError';
     this.status = 409;

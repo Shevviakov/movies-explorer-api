@@ -4,7 +4,7 @@ const auth = require('../middlewares/auth');
 const authRouter = require('./auth');
 const usersRouter = require('./users');
 const moviesRouter = require('./movies');
-const { NotFoundError } = require('../utils/httpErrors');
+const { pathNotFound } = require('../utils/errors');
 
 router.use('/', authRouter);
 
@@ -12,7 +12,7 @@ router.use(auth);
 router.use('/users', usersRouter);
 router.use('/movies', moviesRouter);
 router.use((req, res, next) => {
-  next(new NotFoundError('Запрашиваемый путь не найден'));
+  next(pathNotFound);
 });
 
 module.exports = router;
