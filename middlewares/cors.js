@@ -1,8 +1,8 @@
 const allowedCors = [
-    'https://sheviakov.nomoredomains.rocks',
-    'http://sheviakov.nomoredomains.rocks',
-    'https://api.sheviakov.nomoredomains.rocks',
-    'http://api.sheviakov.nomoredomains.rocks',
+    'https://sheviakov.nomoredomains.xyz',
+    'http://sheviakov.nomoredomains.xyz',
+    'https://api.sheviakov.nomoredomains.monster',
+    'http://api.sheviakov.nomoredomains.monster',
     'localhost:3000',
 ];
 
