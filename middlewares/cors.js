@@ -3,7 +3,7 @@ const allowedCors = [
     'http://sheviakov.nomoredomains.xyz',
     'https://api.sheviakov.nomoredomains.monster',
     'http://api.sheviakov.nomoredomains.monster',
-    'localhost:3000',
+    'http://localhost:3000',
 ];
 
 module.exports = (req, res, next) => {
