@@ -48,5 +48,8 @@ module.exports.signin = (req, res, next) => {
 };
 
 module.exports.signout = (req, res) => {
-  res.clearCookie('jwt').end();
+  res.clearCookie('jwt', {
+    sameSite: 'none',
+    secure: true,
+  }).send({});
 };
