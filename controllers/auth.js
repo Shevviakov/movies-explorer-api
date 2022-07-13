@@ -40,7 +40,7 @@ module.exports.signin = (req, res, next) => {
           maxAge: (3600000 * 24 * EXPIRATION_TIME_DAYS),
           httpOnly: true,
         })
-        .end();
+        .send({});
     })
     .catch((err) => next(mongooseErrorHandler(err)));
 };
