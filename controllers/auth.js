@@ -39,6 +39,7 @@ module.exports.signin = (req, res, next) => {
         .cookie('jwt', token, {
           maxAge: (3600000 * 24 * EXPIRATION_TIME_DAYS),
           httpOnly: true,
+          sameSite: 'none',
         })
         .send({});
     })
