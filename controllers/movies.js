@@ -26,12 +26,7 @@ module.exports.addMovie = (req, res, next) => {
 };
 
 module.exports.deleteMovie = (req, res, next) => {
-  Movie.findById(req.params.movieId)
-    .then((movie) => {
-      if (!movie) return Promise.reject(movieNotFound);
-      if (!movie.owner.equals(req.user._id)) return Promise.reject(new ForbiddenError());
-      return Movie.findByIdAndDelete(req.params.movieId);
-    })
+  Movie.deleteOne({ onwer: req.user._id, movieId: req.params.movieId })
     .then((movie) => res.send(movie))
     .catch((err) => next(mongooseErrorHandler(err)));
 };
