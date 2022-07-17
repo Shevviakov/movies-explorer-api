@@ -26,7 +26,7 @@ module.exports.addMovie = (req, res, next) => {
 };
 
 module.exports.deleteMovie = (req, res, next) => {
-  Movie.findOneAndRemove({ onwer: { _id: req.user._id }, movieId: req.params.movieId })
+  Movie.findOneAndRemove({ owner: req.user._id, movieId: req.params.movieId })
     .then((movie) => res.send(movie))
     .catch((err) => next(mongooseErrorHandler(err)));
 };
